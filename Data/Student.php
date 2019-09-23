@@ -14,5 +14,11 @@
         public $fio; 
         public $rating;
         public $sex;
+
+        public function toString() {
+            return "FIO: " . $this->fio 
+                . " rating: " . $this->rating 
+                . " sex: " . $this->sex;
+        }
     }
     
