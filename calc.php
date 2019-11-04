@@ -28,7 +28,7 @@
             return pow($left, $right);
         }
 
-        function Calculate($expression = '') {
+        function CalculateExpression($expression = '') {
             $Arr = explode(" ", $expression);
             
             //for ($i = 0; $i < count($Arr); $i += 1)
@@ -81,13 +81,13 @@
 
         //echo(trim(fgets(STDIN)));
 
-        echo(Calculate("-5 + 4"));
+        echo(CalculateExpression("-5 + 4"));
         echo("\n");
 
-        echo(Calculate("8 * 9"));
+        echo(CalculateExpression("8 * 9"));
         echo("\n");
 
-        echo(Calculate("7 ^ 2"));
+        echo(CalculateExpression("7 ^ 2"));
     ?>   
 </body>
 </html>

@@ -23,4 +23,11 @@
                     return $students[$i];
             }
         }
+
+        public function GetByGroup($group){
+            return array_filter(
+                $this->GetStudents(), 
+                function($v, $k) {return $k->group === $group;}
+            );
+        }
     }
