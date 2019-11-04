@@ -1,8 +1,7 @@
 <?php
+$var = 5;
 
-$her = 5;
+$var = 10;
 
-$her = 10;
-echo("HELLO MAZAFAKA");
 phpinfo();
 ?>

@@ -17,11 +17,4 @@
         public function GetStudents(){
             return $this->students;
         }
-
-        public function GetStudentByFio($fio) {
-            for ($i = 0; count($this->students); $i++) {
-                if ($this->students[$i]->fio == $fio) 
-                    return $this->students[$i];
-            }
-        }
     }

@@ -28,7 +28,7 @@
             return pow($left, $right);
         }
 
-        function Calculate($expression) {
+        function Calculate($expression = '') {
             $Arr = explode(" ", $expression);
             
             //for ($i = 0; $i < count($Arr); $i += 1)
@@ -38,14 +38,16 @@
             $opArr = array();
 
             for ($i = 0; $i < count($Arr); $i += 1) {
-                if (preg_match('/\+|-|\*|\/|\^/', $Arr[$i])) {
-                    array_push($opArr, $Arr[$i]);
-                    continue;
-                }
                 if (preg_match('/[1-9]/', $Arr[$i])) {
                     array_push($numArr, $Arr[$i]);
                     continue;
                 }
+
+                if (preg_match('/\+|-|\*|\/|\^/', $Arr[$i])) {
+                    array_push($opArr, $Arr[$i]);
+                    continue;
+                }
+
                 break;
             }
 
@@ -77,11 +79,15 @@
             return $sum;
         }
 
-        echo(Calculate("5 + 4 + 8 - 9 + 3"));
+        //echo(trim(fgets(STDIN)));
+
+        echo(Calculate("-5 + 4"));
         echo("\n");
-        echo(Calculate("8 * 9 / 3 - 7"));
+
+        echo(Calculate("8 * 9"));
         echo("\n");
-        echo(Calculate("7 ^ 2 + 5 + 9 / 7"));
+
+        echo(Calculate("7 ^ 2"));
     ?>   
 </body>
 </html>

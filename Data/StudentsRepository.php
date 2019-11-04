@@ -14,4 +14,13 @@
             
             return $count;
         }
+
+        public function GetStudentByFio($fio) {
+            $students = $this->GetStudents();
+
+            for ($i = 0; count($students); $i++) {
+                if ($students[$i]->fio == $fio) 
+                    return $students[$i];
+            }
+        }
     }
