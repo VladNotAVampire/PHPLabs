@@ -3,7 +3,16 @@
     require_once('StudentsRepository.php');
 
     class HardcodedStudentsRepository extends StudentsRepository {
-        function __construct(){
+        public static $instance;
+        public static function getInstance() : HardcodedStudentsRepository{
+            if (static::$instance === null)
+            {
+                static::$instance = new static();
+            }
+            return static::$instance;
+        }
+
+        private function __construct(){
             $this->students = Array(
                 new Student('Ivanov', 4.7, Student::MALE_SEX, 1),
                 new Student('Petrov', 4.3, Student::MALE_SEX, 1),
@@ -16,5 +25,10 @@
 
         public function GetStudents(){
             return $this->students;
+        }
+
+        public function AddStudent(Student $student)
+        {
+            array_push($this->students, $student);
         }
     }

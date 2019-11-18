@@ -1,9 +1,6 @@
 <?php
-
-function HandleDecaneryRequest()
+function viewDecaneryRequest(StudentsRepository $repository)
 {
-    $repository = HardcodedStudentsRepository::getInstance();
-
     function executeCrudAction($method){
         switch ($method){
             case "POST":
@@ -34,6 +31,7 @@ function HandleDecaneryRequest()
 
         return $repository->GetStudents();
     }
+
     function renderView($students){
         ?>
         <h1>Decanery</h1>

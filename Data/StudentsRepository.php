@@ -3,6 +3,7 @@
 
     abstract class StudentsRepository {
         public abstract function GetStudents();
+        public abstract function AddStudent(Student $student);
 
         public function CountStudentsOfSex(string $sex){
             $count = 0;
@@ -27,7 +28,7 @@
         public function GetByGroup($group){
             return array_filter(
                 $this->GetStudents(), 
-                function($v, $k) {return $k->group === $group;}
+                function($v) use ($group) {return $v->group == $group;}
             );
         }
     }
