@@ -2,18 +2,18 @@
     require_once(__DIR__ . '/../Functions/calc.php');
 
     function tryCalculate(){
-        if (!$_REQUEST->key_exists('operand1') || !$_REQUEST->key_exists('operator') || !$_REQUEST->key_exists('operand2'))
+        if (!array_key_exists('operand1', $_REQUEST) || !array_key_exists('operator', $_REQUEST) || !array_key_exists('operand2', $_REQUEST))
             return null;
 
         if (!in_array($_REQUEST['operator'], array('+', '-', '*', '/', '^', '?')))
             return null;
 
-        return Calculate($_REQUEST[], $_REQUEST, $_REQUEST);
+        return Calculate($_REQUEST['operand1'], $_REQUEST['operand2'], $_REQUEST['operator']);
     }
 ?>
 
 <h1>Calc</h1>
-<from method="post">
+<form method="post">
     <input type = "number" name="operand1" placeholder="operand 1">
     <select name="operator" placeholder="operation">
         <option>+</option>
@@ -21,10 +21,9 @@
         <option>*</option>
         <option>/</option>
         <option>^</option>
-        <option>?</option>
     </select>
     <input type = "number" name="operand2" placeholder="operand 2">
-    <el>= <?=tryCalculate()?></el>
-    </br>
+    = <?=tryCalculate()?>
+    <br/>
     <input type="submit" value="calculate">
 </form>

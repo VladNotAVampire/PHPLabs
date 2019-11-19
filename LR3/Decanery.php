@@ -1,5 +1,5 @@
 <?php 
 require_once(__DIR__ . '/../Data/HardcodedStudentsRepository.php');
-require_once(__DIR__ . '/../Functions/ViewDecaneryRequest.php');
+require_once(__DIR__ . '/../Functions/HandleDecaneryRequest.php');
 
-viewDecaneryRequest(HardcodedStudentsRepository::getInstance());
+handleDecaneryRequest(HardcodedStudentsRepository::getInstance());
