@@ -13,8 +13,8 @@ class DecaneryRequestHandler
 
     function HandleDecaneryRequest()
     {
-        $this->$method = $_SERVER['REQUEST_METHOD'];
-        $this->$actiontype = array_key_exists('actiontype', $_REQUEST) ? $_REQUEST["actiontype"] : null;
+        $this->method = $_SERVER['REQUEST_METHOD'];
+        $this->actiontype = array_key_exists('actiontype', $_REQUEST) ? $_REQUEST["actiontype"] : null;
 
         if ($this->method !== "GET") $this->executeCrudAction();
 
@@ -81,6 +81,7 @@ class DecaneryRequestHandler
 
     private function renderView()
     {
+        $students = $this->studentsToRender;
 ?>
             <h1>Decanery</h1>
             filters
@@ -107,7 +108,7 @@ class DecaneryRequestHandler
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($this->studentsToRender as $student): ?>
+                    <?php foreach ($students as $student): ?>
                     <tr>
                         <td><?=$student->fio?></td>
                         <td><?=$student->rating?></td>
