@@ -4,10 +4,11 @@ function HandleDecaneryRequest()
 {
     $repository = HardcodedStudentsRepository::getInstance();
 
-    function executeCrudAction($method){
+    function executeCrudAction($method, $actiontype){
         switch ($method){
             case "POST":
-               // addStudent();
+                if ($actiontype === "add student")
+                    addStudent();
                 break;
             case "PUT":
                 updateStudent();
@@ -22,17 +23,26 @@ function HandleDecaneryRequest()
 
     function addStudent() {
         echo("hey");
-        $repository.addStudent(new Student($_POST["fio"], $_POST["rating"], $_POST["sex"], $_POST["group"])); 
+        $repository->addStudent(new Student($_POST["fio"], $_POST["rating"], $_POST["sex"], $_POST["group"])); 
     }
 
     function updateStudent() {}
     function deleteStudent() {}
 
     function getStudentsToRender($repository){
-        if ($_GET["filterGroup"])
-            return $repository->GetByGroup($_GET["filterGroup"]);
+        $result = null;
 
-        return $repository->GetStudents();
+        if ($_REQUEST->key_exists("filterGroup"))
+            $result = $repository->GetByGroup($_REQUEST["filterGroup"]);
+        else 
+            $result = $repository->GetStudents();
+
+        if ($_REQUEST->key_exists("sort")){
+            $sort = $_REQUEST["sort"];
+            uksort($result, function($a, $b) { return strcmp($a->$sort, $b->$sort);});
+        }
+
+        return $result;
     }
     function renderView($students){
         ?>
@@ -46,10 +56,12 @@ function HandleDecaneryRequest()
         <table>
             <thead>
                 <tr>
-                    <th>fio</th>
-                    <th>rating</th>
-                    <th>sex</th>
-                    <th>group</th>
+                    <th>
+                        <form><input type="submit" name="sort" value="fio"></form>
+                    </th>
+                    <th><form><input type="submit" name="sort" value="rating"></form></th>
+                    <th><form><input type="submit" name="sort" value="sex"></form></th>
+                    <th><form><input type="submit" name="sort" value="group"></form></th>
                 </tr>
             </thead>
             <tbody>
@@ -73,15 +85,16 @@ function HandleDecaneryRequest()
                 <option><?=Student::FEMALE_SEX?></option>
             </select>
             <input type="text" name="group" placeholder="group">
-            <input type="submit" value="add student" placeholder="actiontype">
+            <input type="submit" value="add student" name="actiontype">
         </form>
         <?php
     }
 
     $method = $_SERVER['REQUEST_METHOD'];
-    
+    $actiontype = $_REQUEST["actiontype"];
+
     if ($method !== "GET")
-        executeCrudAction($method);
+        executeCrudAction($method, $actiontype);
     
     $studentsToRender = getStudentsToRender($repository);
     
