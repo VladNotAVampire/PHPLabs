@@ -53,13 +53,29 @@ class MysqlStudentsRepository extends StudentsRepository
 
     private function RowToStudent($row){
         $sexAsStr = $row['sex'] == 0 ? Student::MALE_SEX : Student::FEMALE_SEX;
-        return new Student($row['fio'], $row['rating'], $sexAsStr, $row['group']);
+        return new Student($row['fio'], $row['rating'], $sexAsStr, $row['group'], $row['id']);
     }
 
     public function AddStudent($student){
-        $sexAsInt = $student->sex == Student::MALE_SEX ? 0 : 1;
+        $sexAsInt = $student->getSexAsInt();
         $sql = "INSERT INTO students(fio, rating, sex, `group`) VALUES 
         ('$student->fio', $student->rating, $sexAsInt, '$student->group');";
+        $response = $this->connection->query($sql);
+    }
+
+    public function UpdateStudent($student){
+        $sexAsInt = $student->getSexAsInt();
+        $sql = "UPDATE students SET 
+                fio = '$student->fio',
+                rating = $student->rating,
+                sex = $sexAsInt,
+                `group` = `$student->group`
+                WHERE id = $student->id;";
+        $response = $this->connection->query($sql);
+    }
+
+    public function DeleteStudent($student){
+        $sql = "DELETE FROM students WHERE id = $student->id;";
         $response = $this->connection->query($sql);
     }
 }
