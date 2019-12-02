@@ -4,6 +4,9 @@
     abstract class StudentsRepository {
         public abstract function GetStudents();
         public abstract function AddStudent(Student $student);
+        public abstract function DeleteStudent(Student $student);
+        public abstract function UpdateStudent(Student $student);
+
 
         public function CountStudentsOfSex(string $sex){
             $count = 0;
@@ -30,5 +33,15 @@
                 $this->GetStudents(), 
                 function($v) use ($group) {return $v->group == $group;}
             );
+        }
+
+        public function GetStudentById($id)
+        {
+            $students = $this->GetStudents();
+
+            for ($i = 0; count($students); $i++) {
+                if ($students[$i]->id == $id) 
+                    return $students[$i];
+            }
         }
     }

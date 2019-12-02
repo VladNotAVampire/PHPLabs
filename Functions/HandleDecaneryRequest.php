@@ -52,6 +52,10 @@ class DecaneryRequestHandler
     }
     private function deleteStudent()
     {
+        
+        $this
+        ->repository
+        ->DeleteStudent($this->repository->GetStudentById($_REQUEST["id"]));
     }
 
     private function getStudentsToRender()
@@ -114,11 +118,13 @@ class DecaneryRequestHandler
                         <td><?=$student->rating?></td>
                         <td><?=$student->sex?></td>
                         <td><?=$student->group?></td>
+                        <td><form method="Delete"><input type="submit" name="id" value="<?=$student->id?>"></form></td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
             <br/>
+            
             <p>New student</p>
             <form method="POST">
                 <input type="text" name="fio" placeholder="fio">

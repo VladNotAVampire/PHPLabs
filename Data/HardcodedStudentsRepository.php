@@ -31,4 +31,22 @@
         {
             array_push($this->students, $student);
         }
+
+        public function DeleteStudent(Student $student)
+        {
+            echo("hello");
+            $tempArray;
+            foreach ($this->students as $tempStudent)
+            {
+                if ($tempStudent == $student)
+                    continue;
+                array_push($tempArray, $tempStudent);
+            }
+            $this->students = $tempArray;
+        }
+
+        public function UpdateStudent(Student $student)
+        {
+
+        }
     }
